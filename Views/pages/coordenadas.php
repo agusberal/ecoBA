@@ -19,7 +19,7 @@ if ($lat === null || $lng === null || $description === null) {
     exit;
 }
 
-// Conexión a la base de datos (ajustar los detalles según tu configuración)
+// Conexión a la base de datos
 $servername = "localhost";
 $username = "root";
 $password = "";

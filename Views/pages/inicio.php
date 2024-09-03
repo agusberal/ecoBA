@@ -32,8 +32,8 @@
 
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script>
-        // Inicializa el mapa centrado en Buenos Aires (latitud: -34.6037, longitud: -58.3816)
-        var map = L.map('map').setView([-34.6037, -58.3816], 13); // Coordenadas de Buenos Aires
+        // Inicializa el mapa centrado en Buenos Aires
+        var map = L.map('map').setView([-34.6037, -58.3816], 13); // Coordenadas
 
     // Carga los tiles de OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
