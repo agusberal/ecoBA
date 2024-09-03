@@ -39,6 +39,73 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19
     }).addTo(map);
+    function loadLocations() {
+    fetch("obtener.php")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            data.locations.forEach(location => {
+                // Crear un marcador para cada ubicación
+                var marker = L.marker([location.lat, location.lng]).addTo(map);
+                marker.bindPopup(`
+                <b>${location.description}</b><br>Lat: ${location.lat}, Lng: ${location.lng},
+                 <button onclick="deleteCoordinates(${location.lat}, ${location.lng}, this)">Eliminar</button>
+                `);
+            });
+        } else {
+            alert('Error al cargar las ubicaciones: ' + (data.message || 'Desconocido'));
+        }
+    })
+    .catch(error => {
+        console.error('Error al cargar ubicaciones:', error);
+        alert('Hubo un problema al cargar las ubicaciones.');
+    });
+    }
+
+    // Llama a la función para cargar las ubicaciones al cargar la página
+    loadLocations();
+
+    // Función para eliminar las coordenadas
+function deleteCoordinates(lat, lng, buttonElement) {
+            // Confirmar la eliminación
+            if (!confirm('¿Estás seguro de que deseas eliminar esta ubicación?')) {
+                return;
+            }
+
+            // Enviar solicitud al servidor para eliminar las coordenadas
+            fetch("eliminar.php", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lat: lat, lng: lng })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Coordenadas eliminadas correctamente.');
+                    // Remover el marcador del mapa
+                    var marker = buttonElement.closest('.leaflet-popup')._source;
+                    map.removeLayer(marker);
+                } else {
+                    alert('Error al eliminar las coordenadas: ' + (data.message || 'Desconocido'));
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar coordenadas:', error);
+                alert('Hubo un problema al eliminar las coordenadas.');
+            });
+}
 
     // Evento para capturar clics en el mapa
     map.on('click', function(e) {
@@ -52,6 +119,7 @@
                 <label>Descripción:</label>
                 <input type="text" id="description" placeholder="Escribe aquí">
                 <button onclick="saveCoordinates(${lat}, ${lng})">Guardar</button>
+               
             </div>
         `;
 
