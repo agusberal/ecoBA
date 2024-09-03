@@ -12,8 +12,8 @@
               });
             </script>';
         }
-        else{
-            $user=$_POST["usuario"]
+        else{   
+            $user=$_POST["usuario"];
             $mail=$_POST["email"];
             $con=$_POST["contraseña"];
             $nom=$_POST["nombre"];

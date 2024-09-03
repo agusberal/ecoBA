@@ -1,25 +1,29 @@
 <?php
-    include("../Controller/conexion.php");
+include("conexion.php");
 
-    if(!empty($_POST["ingresar"])){
-        if(!empty($_POST["usuario"]) and !empty($_POST["contraseña"])){
-            $user=$_POST["usuario"];
-            $clave=$_POST["contraseña"];
-            $sql=$ruta->query("SELECT * FROM usuarios WHERE user='$user' and contraseña='$clave'");
-            if($verificamos=$sql->fetch_object()){
-                header("Location:Views/pages/inicio.php");
-                echo "nashe";   
-            }
-            else{
-                echo "no tienes cuenta";
-            }
+if (!empty($_POST["ingresar"])) {
+    if (!empty($_POST["usuario"]) && !empty($_POST["contraseña"])) {
+        $user = $_POST["usuario"];
+        $clave = $_POST["contraseña"];
+
+        // Utilizar sentencia preparada con parámetros
+        $stmt = $Ruta->prepare("SELECT * FROM usuarios WHERE user = ? AND contraseña = ?");
+        $stmt->bind_param("ss", $user, $clave);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $verificamos = $result->fetch_object();
+            // Iniciar sesión
+            session_start();
+            $_SESSION["logueado"] = true;
+            header("Location: ../Views/pages/inicio.php");
+            exit;
+        } else {
+            echo "<script>alert('No tienes Cuenta');</script>";
         }
-        else{
-           
-            echo "debe ingresar usuario y/o contraseña";
-        }
+    } else {
+        echo "Debe ingresar usuario y/o contraseña";
     }
-    else{
-        echo "algo esta mal enviado";
-    }
+}
 ?>
