@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php
-        include("Controller/conexion.php");
-        include("Model/login.php");
-        
-    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Document</title>
 </head>
 <body>
-   
-    <main>
-        <form action="Model/login.php" method="post" class="inicio">
+    <main>    
+        <?php
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+
+            include __DIR__ . '/Controller/conexion.php';
+            include __DIR__ . '/Model/login.php';
+        ?>
+        
+        <form action="" method="post" class="inicio">
             <h1>LOGIN</h1>
-            <input type="text" name="usuario" placeholder="Ingresar usuario">
-            <input type="password" name="contraseña" placeholder="Ingresar contraseña">
+            <input type="text" name="usuario" placeholder="Ingresar usuario" required="">
+            <input type="password" name="contraseña" placeholder="Ingresar contraseña"required="">
             <input type="submit" value="Ingresar" name="ingresar">
             <p>¿No Tienes Cuenta?<a href="Views/pages/crearC.php">!Registrate¡</a></p>
       
-        </form>
+        </for>
     </main>
+
 </body>
 </html>

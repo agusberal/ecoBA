@@ -1,26 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOLA</title>
+    <title>Document</title>
+
 </head>
 <body>
-    
     <header>
         
     </header>
     <main>
+        <?php
+            include ('../../Controller/conexion.php');
+            include ('../../Model/registrar.php');
+        ?>
         <div class="volver">
             <a href="../../index.php" class="atras">Atras</a>
         </div>
         <div class="iniciose1">
             <form action="" method="post" class="forms">
-                <?php
-                include "../../Controller/conexion.php";
-                include "../../Model/registrar.php";
-                ?>
-            
+
                 <div class="registro">
                     <h2 class="contact">¡Registrate¡</h2>
 
@@ -56,5 +58,6 @@
             </form>
         </div>
     </main>
+
 </body>
 </html>

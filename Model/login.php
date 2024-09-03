@@ -1,5 +1,5 @@
 <?php
-    include("../Controller/conexion.php");
+
 
     if(!empty($_POST["ingresar"])){
         if(!empty($_POST["usuario"]) and !empty($_POST["contraseña"])){
