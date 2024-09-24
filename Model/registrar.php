@@ -12,6 +12,7 @@
               });
             </script>';
         }
+
         else{   
             $user=$_POST["usuario"];
             $mail=$_POST["email"];
