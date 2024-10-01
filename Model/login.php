@@ -7,7 +7,7 @@ if (!empty($_POST["ingresar"])) {
         $clave = $_POST["contraseña"];
 
         // Utilizar sentencia preparada con parámetros
-        $stmt = $Ruta->prepare("SELECT * FROM usuarios WHERE user = ? AND contraseña = ?");
+        $stmt = $Ruta->prepare("SELECT * FROM usuario WHERE user = ? AND password = ?");
         $stmt->bind_param("ss", $user, $clave);
         $stmt->execute();
         $result = $stmt->get_result();
